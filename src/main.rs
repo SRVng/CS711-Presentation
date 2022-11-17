@@ -2,10 +2,16 @@ use std::{
     fs,
     io::{prelude::*, BufReader},
     net::{TcpListener, TcpStream},
+    env
 };
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let port: String = if let Ok(env_port) = env::var("PORT") {
+        env_port
+    } else {
+        panic!("No port specified")
+    };
+    let listener = TcpListener::bind(format!("127.0.0.1:{}", port)).unwrap();
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
