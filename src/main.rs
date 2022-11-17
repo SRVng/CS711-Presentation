@@ -11,7 +11,7 @@ fn main() {
     } else {
         panic!("No port specified")
     };
-    let listener = TcpListener::bind(format!("127.0.0.1:{}", port)).unwrap();
+    let listener = TcpListener::bind(format!("0.0.0.0:{}", port)).unwrap();
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
